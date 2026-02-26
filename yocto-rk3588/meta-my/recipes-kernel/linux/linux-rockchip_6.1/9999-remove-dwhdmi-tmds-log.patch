@@ -1,0 +1,11 @@
+--- a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
++++ a/drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c
+@@ -879,7 +879,7 @@
+ 	hdmi->link_cfg.add_func = hdmi->add_func;
+ 
+ 	if (!max_frl_rate || (tmdsclk < HDMI20_MAX_RATE && mode.clock < HDMI20_MAX_RATE)) {
+-		dev_info(hdmi->dev, "use tmds mode\n");
++		//dev_info(hdmi->dev, "use tmds mode\n");
+ 		hdmi->link_cfg.frl_mode = false;
+ 		return;
+ 	}

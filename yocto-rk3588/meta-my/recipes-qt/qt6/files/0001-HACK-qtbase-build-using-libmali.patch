@@ -1,0 +1,40 @@
+From b745ade08dd3e3a9a14a32c1994c0bd7bfb8115f Mon Sep 17 00:00:00 2001
+From: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
+Date: Wed, 25 Sep 2024 22:45:07 +0900
+Subject: [PATCH] HACK qtbase build using libmali
+
+Signed-off-by: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
+---
+ cmake/3rdparty/extra-cmake-modules/find-modules/FindEGL.cmake | 2 +-
+ cmake/FindGLESv2.cmake                                        | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/cmake/3rdparty/extra-cmake-modules/find-modules/FindEGL.cmake b/cmake/3rdparty/extra-cmake-modules/find-modules/FindEGL.cmake
+index 9ac8e2fa0c..c5561f7fdf 100644
+--- a/cmake/3rdparty/extra-cmake-modules/find-modules/FindEGL.cmake
++++ b/cmake/3rdparty/extra-cmake-modules/find-modules/FindEGL.cmake
+@@ -81,7 +81,7 @@ find_path(EGL_INCLUDE_DIR
+ )
+ find_library(EGL_LIBRARY
+     NAMES
+-        EGL
++        mali EGL
+     HINTS
+         ${PKG_EGL_LIBRARY_DIRS}
+ )
+diff --git a/cmake/FindGLESv2.cmake b/cmake/FindGLESv2.cmake
+index 4730418209..16f79437e8 100644
+--- a/cmake/FindGLESv2.cmake
++++ b/cmake/FindGLESv2.cmake
+@@ -8,7 +8,7 @@ include(CheckCXXSourceCompiles)
+ if(EMSCRIPTEN)
+     set(HAVE_GLESv2 ON)
+ else()
+-    find_library(GLESv2_LIBRARY NAMES GLESv2 OpenGLES)
++    find_library(GLESv2_LIBRARY NAMES mali GLESv2 OpenGLES)
+     find_path(GLESv2_INCLUDE_DIR NAMES "GLES2/gl2.h" "OpenGLES/ES2/gl.h" DOC "The OpenGLES 2 include path")
+     find_package(EGL)
+     set(_libraries "${CMAKE_REQUIRED_LIBRARIES}")
+-- 
+2.25.1
+
