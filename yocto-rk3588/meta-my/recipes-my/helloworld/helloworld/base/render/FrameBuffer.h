@@ -1,0 +1,61 @@
+/**
+ * My simple ui framework source code
+ *
+ * Author: Kyungyin.Kim < myohancat@naver.com >
+ */
+#ifndef __FRAMEBUFFER_H_
+#define __FRAMEBUFFER_H_
+
+#include "EGLHelper.h"
+
+class FrameBuffer
+{
+public:
+    /* format : DRM_FORMAT... */
+    FrameBuffer(int format, int width, int height);
+    ~FrameBuffer();
+
+    void bind();
+    void unbind();
+
+    int   texture() const;
+    int   dmabuf() const;
+    void* pixels() const;
+
+
+protected:
+    void init();
+    void cleanup();
+
+private:
+    int      mFormat;
+    int      mWidth;
+    int      mHeight;
+
+    GLuint   mTexture;
+    GLuint   mFramebuffer;
+
+    GLint    mPreviousFramebuffer;
+
+    EGLImageKHR mEglImage;
+    int         mDmaBufFD;
+    void*       mMmapPtr;
+    int         mMmapSize;
+};
+
+inline int FrameBuffer::texture() const
+{
+    return mTexture;
+}
+
+inline int FrameBuffer::dmabuf() const
+{
+    return mDmaBufFD;
+}
+
+inline void* FrameBuffer::pixels() const
+{
+    return mMmapPtr;
+}
+
+#endif /* __FRAMEBUFFER_H_ */
